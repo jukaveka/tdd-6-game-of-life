@@ -10,4 +10,12 @@ export class Cell {
   populate() {
     this.populated = true;
   }
+
+  tag() {
+    return this.populated ? "o" : "b";
+  }
+
+  toString() {
+    return this.populated ? "X" : " ";
+  }
 }
