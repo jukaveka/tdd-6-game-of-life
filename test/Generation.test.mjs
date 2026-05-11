@@ -73,4 +73,15 @@ describe("Generation", () => {
 
     expect(generation.runLengthEncodedPattern()).to.equal("2ob$b2o!");
   });
+
+  test("can determine cell neighbours count", () => {
+    const row1 = [new Cell(true), new Cell(true), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(true)];
+    const row3 = [new Cell(false), new Cell(false), new Cell(false)];
+    cells.push(row1, row2, row3);
+    const generation = new Generation(cells, number);
+    const neighbours = generation.neighboursAt({row: 1, column: 1});
+
+    expect(neighbours).to.equal(3);
+  })
 });

@@ -16,6 +16,22 @@ export class Generation {
     return string;
   }
 
+  neighboursAt(cell) {
+    let populated = 0;
+    for (let row = -1; row < 2; row++) {
+      for (let column = -1; column < 2; column++) {
+        const neighbourRow = cell.row + row;
+        const neighbourColumn = cell.column + column;
+        const neighbour = this.cells[neighbourRow][neighbourColumn];
+        if (neighbour.populated && !(neighbourRow === cell.row && neighbourColumn === cell.column)) {
+          populated++;
+        }
+      }
+    }
+
+    return populated;
+  }
+
   runLengthEncodedHeader() {
     const width = this.cells[0].length;
     const height = this.cells.length;
