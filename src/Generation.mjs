@@ -9,9 +9,9 @@ export class Generation {
     this.cells.forEach((row) => {
       row.forEach((cell) => {
         string = string.concat(cell.toString());
-      })
+      });
       string = string.concat("\n");
-    })
+    });
 
     return string;
   }
@@ -22,28 +22,38 @@ export class Generation {
     return `x = ${width}, y = ${height}\n`;
   }
 
+  runLengthEncodedPattern() {
+    let pattern = "";
+
+    this.cells.forEach((row) => {
+      const encodedRow = this.rowEncoder(row);
+      pattern = pattern.concat(encodedRow);
+    });
+
+    pattern = pattern.substring(0, pattern.length - 1).concat("!");
+
+    return pattern;
+  }
+
   rowEncoder(row) {
     let encodedRow = "";
-
-    for(let column = 0; column < row.length; column++) {
-      const cell = row[column]
-      const tag = cell.tag()
-
+    for (let column = 0; column < row.length; column++) {
+      const cell = row[column];
+      const tag = cell.tag();
       let count = 1;
-      while(column < row.length - 1 && tag === row[column + 1].tag()) {
-        count++
-        column++
+
+      while (column < row.length - 1 && tag === row[column + 1].tag()) {
+        count++;
+        column++;
       }
 
       if (count === 1) {
-        count = ""
+        count = "";
       }
-
-      encodedRow = encodedRow.concat(`${count}${tag}`)
+      encodedRow = encodedRow.concat(`${count}${tag}`);
     }
 
     encodedRow = encodedRow.concat("$");
-
     return encodedRow;
   }
 }
