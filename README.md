@@ -1,6 +1,4 @@
-# New JavaScript Project
-
-An empty project with JavaScript testing tools preconfigured. Do whatever you like with it.
+# Exercise 6 - Conway's Game of Life
 
 ## Prerequisites
 
