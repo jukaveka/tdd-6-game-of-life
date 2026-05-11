@@ -1,14 +1,6 @@
 import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
-import { sum } from "../src/example.mjs";
 import { Game } from "../src/Game.mjs";
-
-// Jotting down things I'd like to test with the skeleton
-// 1. Returns an object
-// 2. Takes file input
-// 3. Takes generation integer
-// 4. Tick increases generation
-// 5. Outputs same file that was input (a string or new file?)
 
 describe("Walking skeleton", () => {
   let game;

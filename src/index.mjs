@@ -1,7 +1,7 @@
 import { Game } from "./Game.mjs";
 
-function initGame(file, endGeneration) {
-  const game = new Game(file, endGeneration);
+function initGame(filePath, endGeneration) {
+  const game = new Game(filePath, endGeneration);
 
   for (let generation = 0; generation < game.endGeneration; generation++) {
     game.tick();
@@ -12,13 +12,13 @@ function initGame(file, endGeneration) {
 
 function parseArgs(args) {
   if (args.length === 4) {
-    const file = args[2];
+    const filePath = args[2];
     const endGeneration = args[3];
-    return {file, endGeneration}
+    return { filePath, endGeneration };
   } else {
     throw new Error("Too many or too few arguments given");
   }
 }
 
 const args = parseArgs(process.argv);
-initGame(args.file, args.endGeneration);
+initGame(args.filePath, args.endGeneration);
