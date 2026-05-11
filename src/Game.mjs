@@ -1,6 +1,10 @@
 export class Game {
-  constructor(file, endGeneration) {
-    this.pattern = file;
+  static initialize(filePath, endGeneration) {
+    return new Game(filePath, endGeneration);
+  }
+
+  constructor(filePath, endGeneration) {
+    this.pattern = filePath;
     this.endGeneration = endGeneration;
     this.currentGeneration = 0;
   }
