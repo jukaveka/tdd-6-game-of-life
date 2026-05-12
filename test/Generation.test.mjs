@@ -18,7 +18,7 @@ describe("Generation", () => {
   let number;
   beforeEach(() => {
     cells = new Array();
-    number = 0;
+    number = 5;
   });
   test("returns an object", () => {
     const generation = new Generation();
@@ -135,15 +135,6 @@ describe("Generation", () => {
     expect(next).to.be.an("object").and.to.have.keys("cells", "number");
   })
 
-  // Jotting down thoughts for myself, ignore
-
-  // 1. Determine "frame" for current generation (dead cells around the borders of generation).
-  // 2. Determine if any cell of the framed cells will repopulate.
-  // 3. Keep, depopulate and repopulate cells based on the rules.
-  // 4. Determine boundaries of next generation
-  // 5. Remove cells outside of the boundaries
-  // 6. Create new Generation with cells and number + 1.
-
   test("frame adds two rows to cells", () => {
     const row1 = [new Cell(true), new Cell(true), new Cell(false)];
     const row2 = [new Cell(false), new Cell(true), new Cell(true)];
@@ -247,5 +238,14 @@ describe("Generation", () => {
     const next = generation.next();
 
     expect(next.cells[0].length).to.equal(3);
+  })
+
+  test("increases generation number for next generation", () => {
+    const row = [new Cell(false), new Cell(true), new Cell(true), new Cell(true)];
+    cells.push(row);
+    const generation = new Generation(cells, number);
+    const next = generation.next();
+
+    expect(next.number).to.equal(6);
   })
 });
