@@ -124,4 +124,52 @@ describe("Generation", () => {
 
     expect(neighbours).to.equal(2);
   })
+
+  test("can generate new Generation object for next generation", () => {
+    const row1 = [new Cell(true), new Cell(true), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(true)];
+    cells.push(row1, row2);
+    const generation = new Generation(cells, number);
+    const next = generation.next();
+
+    expect(next).to.be.an("object").and.to.have.keys("cells", "number");
+  })
+
+  // Jotting down thoughts for myself, ignore
+
+  // 1. Determine "frame" for current generation (dead cells around the borders of generation).
+  // 2. Determine if any cell of the framed cells will repopulate.
+  // 3. Keep, depopulate and repopulate cells based on the rules.
+  // 4. Determine boundaries of next generation
+  // 5. Remove cells outside of the boundaries
+  // 6. Create new Generation with cells and number + 1.
+
+  test("frame adds two rows to cells", () => {
+    const row1 = [new Cell(true), new Cell(true), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(true)];
+    cells.push(row1, row2);
+    const generation = new Generation(cells, number);
+
+    expect(generation.frame()).to.have.length(4);
+  })
+
+  test("frame adds two columns to cells", () => {
+    const row1 = [new Cell(true), new Cell(true), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(true)];
+    cells.push(row1, row2);
+    const generation = new Generation(cells, number);
+
+    expect(generation.frame()[0]).to.have.length(5);
+  })
+
+  test("generates correct shape for 3x3 all-populated pattern", () => {
+    const row1 = [new Cell(true), new Cell(true), new Cell(true)];
+    const row2 = [new Cell(true), new Cell(true), new Cell(true)];
+    const row3 = [new Cell(true), new Cell(true), new Cell(true)];
+    cells.push(row1, row2, row3);
+    const generation = new Generation(cells, number);
+    const next = generation.next();
+
+    expect(next.toString()).to.have.equal(" XXX \nXX XX\nX   X\nXX XX\n XXX \n");
+  })
 });

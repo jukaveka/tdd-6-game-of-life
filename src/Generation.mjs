@@ -1,3 +1,5 @@
+import { Cell } from "./Cell.mjs";
+
 export class Generation {
   constructor(cells, number) {
     this.cells = cells;
@@ -38,6 +40,23 @@ export class Generation {
     }
 
     return populated;
+  }
+
+  frame() {
+    const width = this.cells[0].length
+    let depopulatedRow = new Array();
+
+    for (let column = 0; column < width; column++) {
+      depopulatedRow = depopulatedRow.concat(new Cell(false))
+    }
+
+    const framedCells = this.cells
+      .toSpliced(0, 0, depopulatedRow)
+      .concat([depopulatedRow])
+      .map((row) => row.toSpliced(0, 0, new Cell(false)))
+      .map((row) => row.concat(new Cell(false)));
+
+    return framedCells;
   }
 
   runLengthEncodedHeader() {
