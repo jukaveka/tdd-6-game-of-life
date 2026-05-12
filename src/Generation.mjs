@@ -19,20 +19,23 @@ export class Generation {
   }
 
   neighboursAt(cell) {
+    const frameRow = cell.row + 1;
+    const frameColumn = cell.column + 1;
+    const framedCells = this.frame();
     let populated = 0;
-    let rows = [cell.row - 1, cell.row, cell.row + 1].filter((number) => number >= 0);
-    let columns = [cell.column - 1, cell.column, cell.column + 1]
+    let rows = [frameRow - 1, frameRow, frameRow + 1].filter((number) => number >= 0);
+    let columns = [frameColumn - 1, frameColumn, frameColumn + 1]
       .filter((number) => number >= 0)
-      .filter((number) => number < this.cells[0].length);
+      .filter((number) => number < framedCells[0].length);
 
     for (let row = 0; row < rows.length; row++) {
       for (let column = 0; column < columns.length; column++) {
         const targetRow = rows[row];
         const targetColumn = columns[column];
-        const neighbourRow = this.cells[targetRow];
+        const neighbourRow = framedCells[targetRow];
         if (neighbourRow) {
           const neighbour = neighbourRow[targetColumn];
-          if (neighbour.populated && !(targetRow === cell.row && targetColumn === cell.column)) {
+          if (neighbour.populated && !(targetRow === frameRow && targetColumn === frameColumn)) {
             populated++;
           }
         }
