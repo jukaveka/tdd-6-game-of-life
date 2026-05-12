@@ -4,6 +4,7 @@ import { RunLengthEncoder } from "../src/RunLengthEncoder.mjs";
 
 const blinker = "x = 3, y = 1\n3o!";
 const block = "x = 2, y = 2\n2o$2o!";
+const glider = "x = 3, y = 3\nbob$2bo$3o!";
 
 describe("Run length encoder", () => {
   let rle;
@@ -30,5 +31,11 @@ describe("Run length encoder", () => {
     const decoded = rle.decoder(block)
 
     expect(decoded.length).to.equal(2);
+  })
+
+  test("decoder adds singular characters to string", () => {
+    const decoded = rle.decoder(glider)
+
+    expect(decoded.length).to.equal(3);
   })
 })
