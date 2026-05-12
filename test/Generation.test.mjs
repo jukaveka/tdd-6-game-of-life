@@ -172,4 +172,80 @@ describe("Generation", () => {
 
     expect(next.toString()).to.have.equal(" XXX \nXX XX\nX   X\nXX XX\n XXX \n");
   })
+
+  // Boundary box top
+  // Boundary box bottom
+  // Boundary box left
+  // Boundary box right
+
+  test("boundary box returns first row from top with populated cell", () => {
+    const row1 = [new Cell(false), new Cell(false), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(true)];
+    const row3 = [new Cell(true), new Cell(true), new Cell(true)];
+    cells.push(row1, row2, row3);
+    const generation = new Generation(cells, number);
+    const boundaryBox = generation.boundaryBox(cells);
+
+    expect(boundaryBox.top).to.equal(1);
+  })
+
+  test("boundary box returns last from top with populated cell", () => {
+    const row1 = [new Cell(false), new Cell(false), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(true)];
+    const row3 = [new Cell(false), new Cell(false), new Cell(false)];
+    cells.push(row1, row2, row3);
+    const generation = new Generation(cells, number);
+    const boundaryBox = generation.boundaryBox(cells);
+
+    expect(boundaryBox.bottom).to.equal(1);
+  })
+
+  test("boundary box returns first row from side with populated cell", () => {
+    const row1 = [new Cell(false), new Cell(false), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(false), new Cell(true)];
+    const row3 = [new Cell(false), new Cell(false), new Cell(false)];
+    cells.push(row1, row2, row3);
+    const generation = new Generation(cells, number);
+    const boundaryBox = generation.boundaryBox(cells);
+
+    expect(boundaryBox.left).to.equal(2);
+  })
+
+  test("boundary box returns last row from side with populated cell", () => {
+    const row1 = [new Cell(false), new Cell(false), new Cell(false)];
+    const row2 = [new Cell(true), new Cell(true), new Cell(false)];
+    const row3 = [new Cell(false), new Cell(false), new Cell(false)];
+    cells.push(row1, row2, row3);
+    const generation = new Generation(cells, number);
+    const boundaryBox = generation.boundaryBox(cells);
+
+    expect(boundaryBox.right).to.equal(1);
+  })
+
+  test.skip("adjusts height of next generation", () => {
+    const row1 = [new Cell(true), new Cell(true), new Cell(false)];
+    const row2 = [new Cell(true), new Cell(false), new Cell(false)];
+    cells.push(row1, row2);
+    const generation = new Generation(cells, number);
+    const next = generation.next();
+
+    // X X Y
+    // X Y Y
+
+    // Y Y Y Y Y
+    // Y X X Y Y
+    // Y X Y Y Y
+    // Y Y Y Y Y
+
+    // Y X X Y Y
+    // X X X Y Y
+    // X X X Y Y
+    // Y Y Y Y Y
+
+    // Y X X
+    // X X X
+    // X X X
+
+    expect(next.cells.length).to.equal(3);
+  })
 });

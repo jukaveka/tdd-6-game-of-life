@@ -78,6 +78,26 @@ export class Generation {
     return new Generation(newCells, 1);
   }
 
+  boundaryBox(cells) {
+    let box = {};
+    const stringRows = cells.map((row) => row.join(""));
+
+    box.top = stringRows.findIndex((row) => row.includes("X"));
+    box.bottom = stringRows.findLastIndex((row) => row.includes("X"));
+
+    let stringColumns = new Array();
+
+    for (let column = 0; column < cells[0].length; column++) {
+      const stringColumn = cells.map((row) => row[column].toString()).join("");
+      stringColumns.push(stringColumn);
+    }
+
+    box.left = stringColumns.findIndex((row) => row.includes("X"));
+    box.right = stringColumns.findLastIndex((row) => row.includes("X"));
+
+    return box;
+  }
+
   runLengthEncodedHeader() {
     const width = this.cells[0].length;
     const height = this.cells.length;
