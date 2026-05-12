@@ -25,8 +25,6 @@ export class Generation {
     let columns = [cell.column - 1, cell.column, cell.column + 1]
       .filter((number) => number >= 0)
       .filter((number) => number < framedCells[0].length);
-    
-    console.log(rows, columns)
 
     for (let row = 0; row < rows.length; row++) {
       for (let column = 0; column < columns.length; column++) {
@@ -60,6 +58,24 @@ export class Generation {
       .map((row) => row.concat(new Cell(false)));
 
     return framedCells;
+  }
+
+  next() {
+    const framedCells = this.frame();
+
+    let newCells = new Array();
+
+    for(let row = 0; row < framedCells.length; row++) {
+      const cellRow = new Array();
+      for(let column = 0; column < framedCells[0].length; column++) {
+        const cell = framedCells[row][column];
+        const neighbours = this.neighboursAt({row, column})
+        cellRow.push(cell.nextCell(neighbours));
+      }
+      newCells.push(cellRow);
+    }
+
+    return new Generation(newCells, 1);
   }
 
   runLengthEncodedHeader() {
