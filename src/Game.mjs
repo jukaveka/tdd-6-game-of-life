@@ -19,10 +19,10 @@ export class Game {
   }
 
   tick() {
-    this.currentGeneration = this.currentGeneration + 1;
+    this.generation = this.generation.next();
   }
 
   current() {
-    return this.pattern;
+    return this.generation.toString();
   }
 }

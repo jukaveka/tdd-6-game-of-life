@@ -1,7 +1,7 @@
 import { Game } from "./Game.mjs";
 
-function initGame(filePath, endGeneration) {
-  const game = new Game(filePath, endGeneration);
+async function initGame(filePath, endGeneration) {
+  const game = await Game.initialize(filePath, endGeneration);
 
   for (let generation = 0; generation < game.endGeneration; generation++) {
     game.tick();
