@@ -1,3 +1,4 @@
+import { File } from "./File.mjs";
 import { Game } from "./Game.mjs";
 
 async function initGame(filePath, endGeneration) {
@@ -8,6 +9,11 @@ async function initGame(filePath, endGeneration) {
   }
 
   console.log(game.current());
+  const file = new File("./patterns/output.rle");
+  const header = game.generation.runLengthEncodedHeader();
+  const pattern = game.generation.runLengthEncodedPattern();
+  const output = header.concat(pattern)
+  await file.write(output);
 }
 
 function parseArgs(args) {
