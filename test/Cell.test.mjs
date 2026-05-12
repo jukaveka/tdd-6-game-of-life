@@ -52,4 +52,36 @@ describe("Cell", () => {
 
     expect(cell.toString()).to.equal(" ");
   });
+
+  test("populated cell with 2 neighbours survives", () => {
+    const cell = new Cell(true);
+    const neighbours = 2;
+    const nextCell = cell.nextCell(neighbours);
+
+    expect(nextCell.populated).to.equal(true);
+  });
+
+  test("populated cell with 3 neighbours survives", () => {
+    const cell = new Cell(true);
+    const neighbours = 3;
+    const nextCell = cell.nextCell(neighbours);
+
+    expect(nextCell.populated).to.equal(true);
+  });
+
+  test("populated cell with under 2 neighbours depopulates", () => {
+    const cell = new Cell(true);
+    const neighbours = 1;
+    const nextCell = cell.nextCell(neighbours);
+
+    expect(nextCell.populated).to.equal(false);
+  });
+
+  test("populated cell with over 3 neighbours depopulates", () => {
+    const cell = new Cell(true);
+    const neighbours = 1;
+    const nextCell = cell.nextCell(neighbours);
+
+    expect(nextCell.populated).to.equal(false);
+  });
 });

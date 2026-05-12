@@ -18,4 +18,14 @@ export class Cell {
   toString() {
     return this.populated ? "X" : " ";
   }
+
+  nextCell(neighbours) {
+    let populated;
+    if (neighbours === 2 || neighbours === 3) {
+      populated = true;
+    } else {
+      populated = false;
+    }
+    return new Cell(populated);
+  }
 }
