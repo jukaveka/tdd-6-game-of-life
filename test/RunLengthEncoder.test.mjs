@@ -1,0 +1,27 @@
+import { beforeEach, describe, test } from "vitest";
+import { expect } from "chai";
+import { RunLengthEncoder } from "../src/RunLengthEncoder.mjs";
+
+const blinker = "x = 3, y = 1\n3o!"
+
+describe("Run length encoder", () => {
+  let rle;
+  beforeEach(() => {
+    rle = new RunLengthEncoder();
+  })
+  test("returns an object", () => {
+    expect(rle).to.be.an("object");
+  })
+
+  test("decoder returns an array", () => {
+    const decoded = rle.decoder(blinker)
+
+    expect(decoded).to.be.an("array");
+  })
+
+  test("decoder returns array of Cells", () => {
+    const decoded = rle.decoder(blinker)
+
+    expect(decoded[0]).to.be.an("object").and.to.have.key("populated");
+  })
+})
