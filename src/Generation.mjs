@@ -18,13 +18,21 @@ export class Generation {
 
   neighboursAt(cell) {
     let populated = 0;
-    for (let row = -1; row < 2; row++) {
-      for (let column = -1; column < 2; column++) {
-        const neighbourRow = cell.row + row;
-        const neighbourColumn = cell.column + column;
-        const neighbour = this.cells[neighbourRow][neighbourColumn];
-        if (neighbour.populated && !(neighbourRow === cell.row && neighbourColumn === cell.column)) {
-          populated++;
+    let rows = [cell.row - 1, cell.row, cell.row + 1].filter((number) => number >= 0);
+    let columns = [cell.column - 1, cell.column, cell.column + 1]
+      .filter((number) => number >= 0)
+      .filter((number) => number < this.cells[0].length);
+
+    for (let row = 0; row < rows.length; row++) {
+      for (let column = 0; column < columns.length; column++) {
+        const targetRow = rows[row];
+        const targetColumn = columns[column];
+        const neighbourRow = this.cells[targetRow];
+        if (neighbourRow) {
+          const neighbour = neighbourRow[targetColumn];
+          if (neighbour.populated && !(targetRow === cell.row && targetColumn === cell.column)) {
+            populated++;
+          }
         }
       }
     }

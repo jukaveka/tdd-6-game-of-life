@@ -84,4 +84,44 @@ describe("Generation", () => {
 
     expect(neighbours).to.equal(3);
   })
+
+  test("can determine cell neighbours at bottom row", () => {
+    const row1 = [new Cell(true), new Cell(true), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(true)];
+    cells.push(row1, row2);
+    const generation = new Generation(cells, number);
+    const neighbours = generation.neighboursAt({row: 1, column: 1});
+
+    expect(neighbours).to.equal(3);
+  })
+
+  test("can determine cell neighbours at top row", () => {
+    const row1 = [new Cell(true), new Cell(true), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(true)];
+    cells.push(row1, row2);
+    const generation = new Generation(cells, number);
+    const neighbours = generation.neighboursAt({row: 0, column: 1});
+
+    expect(neighbours).to.equal(3);
+  })
+
+  test("can determine cell neighbours at leftmost column", () => {
+    const row1 = [new Cell(true), new Cell(true), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(true)];
+    cells.push(row1, row2);
+    const generation = new Generation(cells, number);
+    const neighbours = generation.neighboursAt({row: 0, column: 0});
+
+    expect(neighbours).to.equal(2);
+  })
+
+  test("can determine cell neighbours at rightmost column", () => {
+    const row1 = [new Cell(true), new Cell(true), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(true)];
+    cells.push(row1, row2);
+    const generation = new Generation(cells, number);
+    const neighbours = generation.neighboursAt({row: 1, column: 2});
+
+    expect(neighbours).to.equal(2);
+  })
 });
