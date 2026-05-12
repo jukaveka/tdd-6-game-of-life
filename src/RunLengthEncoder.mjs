@@ -6,7 +6,8 @@ export class RunLengthEncoder {
   decoder(data) {
     const splitData = data.split("\n");
     const header = splitData[0];
-    const content = splitData.toSpliced(0, 1);
+    const pattern = splitData.toSpliced(0, 1);
+    const content = pattern[0].split("$");
 
     let decoded = new Array();
     for (let row = 0; row < content.length; row++) {
@@ -16,12 +17,9 @@ export class RunLengthEncoder {
         if (!isNaN(character) ) {
           const count = Number(character);
           const letter = content[row][column + 1]
-          
-          console.log(letter);
           decodedRow = decodedRow.concat(letter.repeat(count))
         }
       }
-
       decoded = decoded.concat(decodedRow);
     }
 
@@ -36,7 +34,7 @@ export class RunLengthEncoder {
           cellRow = cellRow.concat(new Cell(false));
         }
       })
-      cells = cells.concat(cellRow);
+      cells.push(cellRow);
     })
 
     return cells;

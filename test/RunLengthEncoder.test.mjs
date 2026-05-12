@@ -2,7 +2,8 @@ import { beforeEach, describe, test } from "vitest";
 import { expect } from "chai";
 import { RunLengthEncoder } from "../src/RunLengthEncoder.mjs";
 
-const blinker = "x = 3, y = 1\n3o!"
+const blinker = "x = 3, y = 1\n3o!";
+const block = "x = 2, y = 2\n2o$2o!";
 
 describe("Run length encoder", () => {
   let rle;
@@ -22,6 +23,12 @@ describe("Run length encoder", () => {
   test("decoder returns array of Cells", () => {
     const decoded = rle.decoder(blinker)
 
-    expect(decoded[0]).to.be.an("object").and.to.have.key("populated");
+    expect(decoded[0][0]).to.be.an("object").and.to.have.key("populated");
+  })
+
+  test("decoder separates patterns with multiple rows", () => {
+    const decoded = rle.decoder(block)
+
+    expect(decoded.length).to.equal(2);
   })
 })
