@@ -80,7 +80,7 @@ describe("Generation", () => {
     const row3 = [new Cell(false), new Cell(false), new Cell(false)];
     cells.push(row1, row2, row3);
     const generation = new Generation(cells, number);
-    const neighbours = generation.neighboursAt({row: 1, column: 1});
+    const neighbours = generation.neighboursAt({row: 2, column: 2});
 
     expect(neighbours).to.equal(3);
   })
@@ -90,9 +90,9 @@ describe("Generation", () => {
     const row2 = [new Cell(false), new Cell(true), new Cell(true)];
     cells.push(row1, row2);
     const generation = new Generation(cells, number);
-    const neighbours = generation.neighboursAt({row: 1, column: 1});
+    const neighbours = generation.neighboursAt({row: 3, column: 2});
 
-    expect(neighbours).to.equal(3);
+    expect(neighbours).to.equal(2);
   })
 
   test("can determine cell neighbours at top row", () => {
@@ -100,9 +100,9 @@ describe("Generation", () => {
     const row2 = [new Cell(false), new Cell(true), new Cell(true)];
     cells.push(row1, row2);
     const generation = new Generation(cells, number);
-    const neighbours = generation.neighboursAt({row: 0, column: 1});
+    const neighbours = generation.neighboursAt({row: 0, column: 2});
 
-    expect(neighbours).to.equal(3);
+    expect(neighbours).to.equal(2);
   })
 
   test("can determine cell neighbours at leftmost column", () => {
@@ -110,9 +110,9 @@ describe("Generation", () => {
     const row2 = [new Cell(false), new Cell(true), new Cell(true)];
     cells.push(row1, row2);
     const generation = new Generation(cells, number);
-    const neighbours = generation.neighboursAt({row: 0, column: 0});
+    const neighbours = generation.neighboursAt({row: 2, column: 0});
 
-    expect(neighbours).to.equal(2);
+    expect(neighbours).to.equal(1);
   })
 
   test("can determine cell neighbours at rightmost column", () => {
@@ -120,9 +120,9 @@ describe("Generation", () => {
     const row2 = [new Cell(false), new Cell(true), new Cell(true)];
     cells.push(row1, row2);
     const generation = new Generation(cells, number);
-    const neighbours = generation.neighboursAt({row: 1, column: 2});
+    const neighbours = generation.neighboursAt({row: 1, column: 4});
 
-    expect(neighbours).to.equal(2);
+    expect(neighbours).to.equal(1);
   })
 
   test("can generate new Generation object for next generation", () => {
