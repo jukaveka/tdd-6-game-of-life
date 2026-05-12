@@ -84,4 +84,20 @@ describe("Cell", () => {
 
     expect(nextCell.populated).to.equal(false);
   });
+
+  test("depopulated cell with exactly 3 neighbours repopulates", () => {
+    const cell = new Cell(false);
+    const neighbours = 3;
+    const nextCell = cell.nextCell(neighbours);
+
+    expect(nextCell.populated).to.equal(true);
+  })
+
+  test("depopulated cell with under 3 neighbours stays unpopulated", () => {
+    const cell = new Cell(false);
+    const neighbours = 2;
+    const nextCell = cell.nextCell(neighbours);
+
+    expect(nextCell.populated).to.equal(false);
+  })
 });
