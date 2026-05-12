@@ -75,6 +75,10 @@ export class Generation {
       newCells.push(cellRow);
     }
 
+    const boundaryBox = this.boundaryBox(newCells)
+    newCells = newCells.slice(boundaryBox.top, boundaryBox.bottom + 1);
+    newCells = newCells.map((row) => row.slice(boundaryBox.left, boundaryBox.right + 1));
+
     return new Generation(newCells, 1);
   }
 

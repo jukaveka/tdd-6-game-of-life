@@ -170,13 +170,8 @@ describe("Generation", () => {
     const generation = new Generation(cells, number);
     const next = generation.next();
 
-    expect(next.toString()).to.have.equal(" XXX \nXX XX\nX   X\nXX XX\n XXX \n");
+    expect(next.toString()).to.have.equal("  X  \n X X \nX   X\n X X \n  X  \n");
   })
-
-  // Boundary box top
-  // Boundary box bottom
-  // Boundary box left
-  // Boundary box right
 
   test("boundary box returns first row from top with populated cell", () => {
     const row1 = [new Cell(false), new Cell(false), new Cell(false)];
@@ -222,30 +217,35 @@ describe("Generation", () => {
     expect(boundaryBox.right).to.equal(1);
   })
 
-  test.skip("adjusts height of next generation", () => {
+  test("adjusts height of next generation", () => {
     const row1 = [new Cell(true), new Cell(true), new Cell(false)];
-    const row2 = [new Cell(true), new Cell(false), new Cell(false)];
+    const row2 = [new Cell(true), new Cell(true), new Cell(true)];
     cells.push(row1, row2);
     const generation = new Generation(cells, number);
     const next = generation.next();
 
-    // X X Y
-    // X Y Y
-
-    // Y Y Y Y Y
-    // Y X X Y Y
-    // Y X Y Y Y
-    // Y Y Y Y Y
-
-    // Y X X Y Y
-    // X X X Y Y
-    // X X X Y Y
-    // Y Y Y Y Y
-
-    // Y X X
-    // X X X
-    // X X X
-
     expect(next.cells.length).to.equal(3);
+  })
+
+  test("removes empty columns from right for next generation", () => {
+    const row1 = [new Cell(true), new Cell(false), new Cell(false), new Cell(false)];
+    const row2 = [new Cell(false), new Cell(true), new Cell(false), new Cell(false)];
+    const row3 = [new Cell(true), new Cell(false), new Cell(false), new Cell(true)];
+    cells.push(row1, row2, row3);
+    const generation = new Generation(cells, number);
+    const next = generation.next();
+
+    expect(next.cells[0].length).to.equal(2);
+  })
+
+  test("removes empty columns from left for next generation", () => {
+    const row1 = [new Cell(false), new Cell(false), new Cell(false), new Cell(true)];
+    const row2 = [new Cell(false), new Cell(false), new Cell(true), new Cell(true)];
+    const row3 = [new Cell(false), new Cell(false), new Cell(false), new Cell(true)];
+    cells.push(row1, row2, row3);
+    const generation = new Generation(cells, number);
+    const next = generation.next();
+
+    expect(next.cells[0].length).to.equal(3);
   })
 });
